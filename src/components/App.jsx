@@ -2,14 +2,21 @@ import React, { Component } from "react"
 // import { FeedbackOptions } from 'components/FeedbackOptions/FeedbackOptions';
 // import { Statistics } from 'components/Statistics/Statistics';
 // import { Notification } from 'components/Notification/Notification';
-// import { Section } from 'components/Section/Section';
+import { Modal } from 'components/Modal/Modal';
 
 export class App extends Component {
   static propTypes = {}
 
   state = {
     keyWord: "",
-    largeImgSrc: ""
+    largeImgSrc: "",
+    showModal: false
+  }
+
+  toggleModal = () => {
+    this.setState(state => ({
+      showModal: !state.showModal
+    }))
   }
 
   // onLeaveFeedback = (btn) => {
@@ -37,7 +44,7 @@ export class App extends Component {
 
   render() {
 
-    // const { good, neutral, bad } = this.state
+    const { showModal } = this.state
     // const totalFeedback = this.totalFeedback();
     // const positiveFeedback = this.positivePercent();
 
@@ -45,11 +52,12 @@ export class App extends Component {
       <div style={{
         margin: "100px auto",
         padding: '15px',
-        width: "700px",
+        width: "100%",
         fontSize: '20px',
         textAlign: 'center',
         background: '#d3d3d3'
       }}>
+
         {/* <Section title="Please leave feedback">
           <FeedbackOptions
             options={['good', 'neutral', 'bad']}
@@ -70,6 +78,12 @@ export class App extends Component {
           }
         </Section> */}
         <h3>IMAGE FINDER </h3>
+        <button type="button" onClick={this.toggleModal}>Show modal</button>
+        {showModal && <Modal closeModal={this.toggleModal}>
+          <h3>MODAL IS WORK</h3>
+          <button type="button" onClick={this.toggleModal}>Hide modal</button>
+        </Modal>}
+
       </div>
     )
   }
