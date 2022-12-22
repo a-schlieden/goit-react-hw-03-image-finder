@@ -15,15 +15,18 @@ export class Modal extends Component {
         window.addEventListener('keydown', this.onEscKeydown);
     }
     componentWillUnmount() {
-        console.log('UNMOUNT')
         window.removeEventListener('keydown', this.onEscKeydown)
     }
 
     onEscKeydown = event => {
         if (event.code === 'Escape') {
-            console.log('Eckape')
             this.props.closeModal();
+        }
+    }
 
+    onBackdropKlick = event => {
+        if (event.currentTarget === event.target) {
+            this.props.closeModal();
         }
     }
 
@@ -34,7 +37,7 @@ export class Modal extends Component {
         // const positiveFeedback = this.positivePercent();
 
         return createPortal(
-            <div className={style.overlay}>
+            <div className={style.overlay} onClick={this.onBackdropKlick}>
                 <div className={style.modal}>
                     {/* <img src="" alt="" /> */}
                     {this.props.children}
