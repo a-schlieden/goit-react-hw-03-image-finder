@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+// import { Vortex } from 'react-loader-spinner'
 // import { FeedbackOptions } from 'components/FeedbackOptions/FeedbackOptions';
 import { ImageGallery } from 'components/ImageGallery/ImageGallery';
 import { Searchbar } from 'components/Searchbar/Searchbar';
@@ -9,22 +10,31 @@ export class App extends Component {
 
   state = {
     page: 2,
+    querry: "",
     formInput: "",
     largeImgSrc: "",
     showModal: false,
     images: null,
-    loading: false
+    // loading: false
   }
 
-  componentDidMount() {
-    this.setState({ loading: true })
-    fetch('https://pixabay.com/api/?q=cat&page=1&key=31200881-a0442d807a70df79b0436fdb6&image_type=photo&orientation=horizontal&per_page=12')
-      .then(responce => responce.json())
-      .then(imagesFromBack =>
-        // console.log(imagesFromBack))
-        this.setState({ images: imagesFromBack }))
-      .finally(() => this.setState({ loading: false }))
-  }
+  // componentDidMount() {
+  //   this.setState({ loading: true })
+  //   fetch('https://pixabay.com/api/?q=cat&page=1&key=31200881-a0442d807a70df79b0436fdb6&image_type=photo&orientation=horizontal&per_page=12')
+  //     .then(responce => responce.json())
+  //     .then(imagesFromBack =>
+  //       // console.log(imagesFromBack))
+  //       this.setState({ images: imagesFromBack }))
+  //     .finally(() => this.setState({ loading: false }))
+  // }
+
+  // FÜR BUTTON LOAD MORE
+  // componentDidUpdate(prevProp, prevState) {
+  //   if (prevState.page !== this.state.page || prevState.querry !== this.state.querry) {
+  //     console.log('FEtch hire ')
+  //   }
+
+  // }
 
   toggleModal = () => {
     this.setState(state => ({
@@ -42,7 +52,7 @@ export class App extends Component {
   }
   render() {
 
-    const { showModal, images, loading } = this.state
+    const { showModal, images } = this.state
     // const totalFeedback = this.totalFeedback();
     // const positiveFeedback = this.positivePercent();
 
@@ -60,7 +70,15 @@ export class App extends Component {
         <ImageGallery searchWord={this.state.formInput} />
         <button type="button" onClick={this.toggleModal}>Show modal</button>
         {showModal && <Modal closeModal={this.toggleModal} image={'test'}></Modal>}
-        {loading && <h3>Spiner load ... </h3>}
+        {/* {loading && <Vortex
+          visible={true}
+          height="80"
+          width="80"
+          ariaLabel="vortex-loading"
+          wrapperStyle={{}}
+          wrapperClass="vortex-wrapper"
+          colors={['blue', 'blue', 'blue', 'yellow', 'yellow', 'yellow']}
+        />} */}
         {images && <p>IMAGE gallery {images.total}</p>}
 
         <button onClick={this.onLoadmoreBtnClick}>Load more</button>
