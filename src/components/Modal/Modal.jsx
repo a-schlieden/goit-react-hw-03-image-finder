@@ -41,6 +41,8 @@ export class Modal extends Component {
                 <div className={style.modal}>
                     {/* <img src="" alt="" /> */}
                     {this.props.children}
+                    <h3>MODAL IS WORK</h3>
+                    <button type="button" onClick={this.props.closeModal}>Hide modal</button>
                 </div>
             </div>,
             modalRender,

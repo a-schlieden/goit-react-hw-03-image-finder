@@ -17,7 +17,7 @@ export class Searchbar extends Component {
             return
         }
         this.props.onSubmitForm(this.state.searchInput);
-        this.resetForm();
+        // this.resetForm();
     };
 
     resetForm = () => {
