@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import style from './Searchbar.module.css';
+import { ReactComponent as Search } from 'components/icons/search.svg';
 
 export class Searchbar extends Component {
   state = {
@@ -16,7 +17,6 @@ export class Searchbar extends Component {
       return;
     }
     this.props.onSubmitForm(this.state.searchInput);
-    // this.resetForm();
   };
 
   resetForm = () => {
@@ -27,10 +27,10 @@ export class Searchbar extends Component {
     const { searchInput } = this.state;
 
     return (
-      <header className="searchbar">
+      <header className={style.Searchbar}>
         <form className={style.SearchForm} onSubmit={this.onFormSubmit}>
           <button type="submit" className={style.SearchFormButton}>
-            <span className="button-label">Search</span>
+            <Search width="20" />
           </button>
 
           <input

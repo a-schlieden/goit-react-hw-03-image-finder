@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { createPortal } from 'react-dom';
-
+import PropTypes from 'prop-types';
 import style from './Modal.module.css';
 
 const modalRender = document.querySelector('#modal');
 
 export class Modal extends Component {
-  static propTypes = {};
+  static propTypes = {
+    closeModal: PropTypes.func.isRequired,
+    image: PropTypes.string.isRequired,
+  };
 
   componentDidMount() {
     window.addEventListener('keydown', this.onEscKeydown);
@@ -17,30 +20,22 @@ export class Modal extends Component {
 
   onEscKeydown = event => {
     if (event.code === 'Escape') {
-      this.props.closeModal();
+      this.props.closeModal('');
     }
   };
 
   onBackdropKlick = event => {
     if (event.currentTarget === event.target) {
-      this.props.closeModal();
+      this.props.closeModal('');
     }
   };
 
   render() {
-    // const { good, neutral, bad } = this.state
-    // const totalFeedback = this.totalFeedback();
-    // const positiveFeedback = this.positivePercent();
-
     return createPortal(
       <div className={style.overlay} onClick={this.onBackdropKlick}>
         <div className={style.modal}>
-          <img src={this.props.image} alt="" />
+          <img src={this.props.image} alt="img" />
           {this.props.children}
-          {/* <h3>MODAL IS WORK</h3> */}
-          {/* <button type="button" onClick={this.props.closeModal}>
-            Hide modal
-          </button> */}
         </div>
       </div>,
       modalRender

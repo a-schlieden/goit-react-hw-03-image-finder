@@ -12,7 +12,6 @@ export class App extends Component {
     pageNumber: 1,
     formInput: '',
     largeImg: '',
-    showModal: false,
     images: [],
     status: 'idleNothing',
   };
@@ -38,8 +37,7 @@ export class App extends Component {
         .then(imagesFromBack => {
           if (imagesFromBack.hits.length > 0) {
             return this.setState({
-              // images: imagesFromBack.hits,
-              images: [...prevState.images, ...imagesFromBack.hits],
+              images: [...this.state.images, ...imagesFromBack.hits],
               status: 'resolved',
             });
           }
@@ -51,12 +49,6 @@ export class App extends Component {
     }
   }
 
-  toggleModal = () => {
-    this.setState(state => ({
-      showModal: !state.showModal,
-    }));
-  };
-
   onFormSubmit = formData => {
     this.setState({ formInput: formData, pageNumber: 1, images: [] });
   };
@@ -65,23 +57,17 @@ export class App extends Component {
     this.setState(prevState => ({ pageNumber: prevState.pageNumber + 1 }));
   };
 
-  handleModal = bigImg => {
+  closeModal = bigImg => {
     this.setState({ largeImg: bigImg });
   };
 
   render() {
     const { status, error, images, largeImg } = this.state;
-    // const totalFeedback = this.totalFeedback();
 
     return (
       <div
         style={{
-          margin: '100px auto',
-          padding: '15px',
-          width: '100%',
-          fontSize: '20px',
           textAlign: 'center',
-          background: '#d3d3d3',
         }}
       >
         <Searchbar onSubmitForm={this.onFormSubmit} />
@@ -89,7 +75,7 @@ export class App extends Component {
         {images.length > 0 && (
           <ImageGallery
             images={this.state.images}
-            onImgClick={this.handleModal}
+            onImgClick={this.closeModal}
           />
         )}
 
@@ -98,19 +84,15 @@ export class App extends Component {
         )}
 
         {status === 'noImg' && (
-          <h2> Sorry no img with name {this.state.formInput} !!!!!</h2>
+          <h2> Sorry no img with name " {this.state.formInput} "</h2>
         )}
 
         {status === 'pendingLoad' && <Loader />}
 
         {status === 'rejecktedError' && <h2>{error.message}</h2>}
 
-        {/* <button type="button" onClick={this.toggleModal}>
-          Show modal
-        </button> */}
-
         {largeImg && (
-          <Modal closeModal={this.handleModal} image={largeImg}></Modal>
+          <Modal closeModal={this.closeModal} image={largeImg}></Modal>
         )}
       </div>
     );

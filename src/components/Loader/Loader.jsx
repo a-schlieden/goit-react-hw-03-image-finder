@@ -1,7 +1,5 @@
 import React from 'react';
 import { Vortex } from 'react-loader-spinner';
-import PropTypes from 'prop-types';
-// import style from './Button.module.css';
 
 export const Loader = () => {
   return (
@@ -15,9 +13,4 @@ export const Loader = () => {
       colors={['blue', 'blue', 'blue', 'yellow', 'yellow', 'yellow']}
     />
   );
-};
-
-Loader.propTypes = {
-  options: PropTypes.arrayOf(PropTypes.string),
-  onLeaveFeedback: PropTypes.func,
 };

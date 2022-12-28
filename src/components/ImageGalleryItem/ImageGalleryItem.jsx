@@ -12,12 +12,12 @@ export const ImageGalleryItem = ({ img, bigImg, onImgClick }) => {
         onClick={() => onImgClick(bigImg)}
         className={style.ImageGalleryItemImage}
       />
-      {/* <p>{bigImg}</p> */}
     </li>
   );
 };
 
 ImageGalleryItem.propTypes = {
-  options: PropTypes.arrayOf(PropTypes.string),
-  onLeaveFeedback: PropTypes.func,
+  img: PropTypes.string.isRequired,
+  bigImg: PropTypes.string.isRequired,
+  onImgClick: PropTypes.func.isRequired,
 };
